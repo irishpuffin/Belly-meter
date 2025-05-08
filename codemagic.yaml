@@ -8,16 +8,16 @@ workflows:
       - name: Install dependencies
         script: |
           flutter pub get
-      - name: Build iOS
+      - name: Build IPA
         script: |
           flutter build ipa --release
     artifacts:
-      - build/ios/iphoneos/Runner.app
       - build/ios/ipa/*.ipa
-publishing:
-  app_store_connect:
-    api_key: Codemagic Key
-    key_id: J98GD4D42Q
-    issuer_id: a377f6f0-f5d3-4367-9a84-0c7ae99fa81e
-    submit_to_testflight: true
-
+    code_signing:
+      certificate: Belly Code Signing
+    publishing:
+      app_store_connect:
+        api_key: Codemagic Key
+        key_id: J98GD4D42Q
+        issuer_id: a377f6f0-f5d3-4367-9a84-0c7ae99fa81e
+        submit_to_testflight: true
