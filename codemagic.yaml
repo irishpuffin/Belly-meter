@@ -4,8 +4,10 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
-    code_signing:
-      certificate_id: JAweXBk3
+      vars:
+        APP_STORE_CONNECT_KEY_IDENTIFIER: J98GD4D42Q
+        APP_STORE_CONNECT_ISSUER_ID: a377f6f0-f5d3-4367-9a84-0c7ae99fa81e
+        APP_STORE_CONNECT_KEY: $APP_STORE_CONNECT_PRIVATE_KEY
     scripts:
       - name: Install dependencies
         script: |
@@ -17,7 +19,7 @@ workflows:
       - build/ios/ipa/*.ipa
     publishing:
       app_store_connect:
-        api_key:
-          key_id: J98GD4D42Q
-          issuer_id: a377f6f0-f5d3-4367-9a84-0c7ae99fa81e
+        api_key: $APP_STORE_CONNECT_KEY
+        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
         submit_to_testflight: true
