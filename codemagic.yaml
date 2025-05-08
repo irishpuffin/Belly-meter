@@ -10,12 +10,10 @@ workflows:
           flutter pub get
       - name: Build iOS
         script: |
-          flutter build ios --release --no-codesign
-      - name: Package .ipa
-        script: |
-          cd build/ios/iphoneos
-          mkdir -p Payload
-          cp -r Runner.app Payload/
-          zip -r Runner.ipa Payload
+          flutter build ipa --release
     artifacts:
-      - build/ios/iphoneos/Runner.ipa
+      - build/ios/ipa/*.ipa
+    publishing:
+      app_store_connect:
+        api_key: CodemagicKey
+        submit_to_testflight: true
