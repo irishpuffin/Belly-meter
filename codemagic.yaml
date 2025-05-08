@@ -13,8 +13,6 @@ workflows:
           flutter build ipa --release
     artifacts:
       - build/ios/ipa/*.ipa
-    code_signing:
-      certificate: Belly Code Signing
     publishing:
       app_store_connect:
         api_key: Codemagic Key
