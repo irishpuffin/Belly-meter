@@ -4,6 +4,11 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
+    code_signing:
+      certificates:
+        - JAweXBk3  # Belly Code Signing certificate ID
+      provisioning_profiles:
+        - Belly Code Signing  # Provisioning profile name from Codemagic
     scripts:
       - name: Install dependencies
         script: |
