@@ -4,6 +4,10 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
+      vars:
+        APP_STORE_CONNECT_KEY_IDENTIFIER: Encrypted_Key_ID
+        APP_STORE_CONNECT_ISSUER_ID: Encrypted_Issuer_ID
+        APP_STORE_CONNECT_PRIVATE_KEY: Encrypted_Private_Key
     scripts:
       - name: Install dependencies
         script: |
