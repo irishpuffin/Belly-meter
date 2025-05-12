@@ -4,6 +4,9 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
+      # Bind certificate and provisioning profile by name
+      code_signing_certificates:
+        - JAweXBk3  # <- this is your code signing certificate ID
     scripts:
       - name: Install dependencies
         script: |
