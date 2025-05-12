@@ -4,8 +4,6 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
-      code_signing_certificates:
-        - JAweXBk3  # <- This is your certificate ID (Belly Code Signing)
     scripts:
       - name: Install dependencies
         script: |
@@ -15,6 +13,9 @@ workflows:
           flutter build ipa --release
     artifacts:
       - build/ios/ipa/*.ipa
+    code_signing:
+      provisioning_profiles:
+        - Belly Code Signing
     publishing:
       app_store_connect:
         api_key: $APP_STORE_CONNECT_PRIVATE_KEY
