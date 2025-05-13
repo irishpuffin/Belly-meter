@@ -11,12 +11,14 @@ workflows:
       - name: Build iOS without code signing
         script: |
           flutter build ios --release --no-codesign
-      - name: Create IPA using xcodebuild and ExportOptions.plist
+      - name: Archive and Export IPA with manual signing
         script: |
           xcodebuild -workspace ios/Runner.xcworkspace \
                      -scheme Runner \
                      -configuration Release \
                      -archivePath build/ios/archive.xcarchive \
+                     -destination 'generic/platform=iOS' \
+                     DEVELOPMENT_TEAM=JAweXBk3 \
                      archive
 
           xcodebuild -exportArchive \
