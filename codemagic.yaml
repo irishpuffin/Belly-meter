@@ -8,7 +8,7 @@ workflows:
         APP_ID: "com.irishpuffin.bellymeter"
         EXPORT_OPTIONS_PLIST: "ExportOptions.plist"
         DEVELOPMENT_TEAM: "JAweXBk3"
-        PROVISIONING_PROFILE_NAME: "Belly Code Signing"
+        PROVISIONING_PROFILE_SPECIFIER: "Belly Code Signing"
       xcode: latest
     scripts:
       - name: Get Flutter packages
@@ -37,7 +37,7 @@ workflows:
             -allowProvisioningUpdates \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM \
-            PROVISIONING_PROFILE_SPECIFIER="$PROVISIONING_PROFILE_NAME" \
+            PROVISIONING_PROFILE_SPECIFIER="$PROVISIONING_PROFILE_SPECIFIER" \
             PRODUCT_BUNDLE_IDENTIFIER=$APP_ID
 
           xcodebuild -exportArchive \
