@@ -6,11 +6,9 @@ workflows:
       xcode: latest
     scripts:
       - name: Install dependencies
-        script: |
-          flutter pub get
+        script: flutter pub get
       - name: Build iOS without code signing
-        script: |
-          flutter build ios --release --no-codesign
+        script: flutter build ios --release --no-codesign
       - name: Archive and Export IPA with manual signing
         script: |
           xcodebuild -workspace ios/Runner.xcworkspace \
@@ -18,7 +16,10 @@ workflows:
                      -configuration Release \
                      -archivePath build/ios/archive.xcarchive \
                      -destination 'generic/platform=iOS' \
+                     -allowProvisioningUpdates \
                      DEVELOPMENT_TEAM=JAweXBk3 \
+                     CODE_SIGN_STYLE=Manual \
+                     PROVISIONING_PROFILE_SPECIFIER="Belly Provisioning Profile" \
                      archive
 
           xcodebuild -exportArchive \
