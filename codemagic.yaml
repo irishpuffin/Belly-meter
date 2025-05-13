@@ -6,12 +6,6 @@ workflows:
       xcode: latest
       groups:
         - appstore
-    code_signing:
-      certificates:
-        - name: Belly Code Signing 2
-          certificate_password: YO6JrLp3of
-      provisioning_profiles:
-        - name: Belly Provisioning Profile
     scripts:
       - name: Install dependencies
         script: |
