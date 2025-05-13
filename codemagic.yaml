@@ -5,9 +5,10 @@ workflows:
       flutter: stable
       xcode: latest
       vars:
-        XCODE_PROJECT: "Runner.xcodeproj"
+        XCODE_PROJECT: "ios/Runner.xcodeproj"
         XCODE_SCHEME: "Runner"
         EXPORT_OPTIONS: "ExportOptions.plist"
+
 scripts:
   - name: Install dependencies
     script: |
