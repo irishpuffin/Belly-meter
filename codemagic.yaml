@@ -4,20 +4,24 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
-      vars:
-        XCODE_PROJECT: "Runner.xcodeproj"
-        XCODE_SCHEME: "Runner"
-        EXPORT_OPTIONS_PLIST: "ExportOptions.plist"
     scripts:
-      - name: Install Flutter dependencies
-        script: flutter pub get
-
-      - name: Build iOS app and export IPA
+      - name: Install dependencies
         script: |
-          flutter build ipa --release \
-            --export-options-plist=$EXPORT_OPTIONS_PLIST
+          flutter pub get
+      - name: Build iOS without code signing
+        script: |
+          flutter build ios --release --no-codesign
+      - name: Create IPA using xcodebuild and ExportOptions.plist
+        script: |
+          xcodebuild -workspace ios/Runner.xcworkspace \
+                     -scheme Runner \
+                     -configuration Release \
+                     -archivePath build/ios/archive.xcarchive \
+                     archive
 
+          xcodebuild -exportArchive \
+                     -archivePath build/ios/archive.xcarchive \
+                     -exportOptionsPlist ExportOptions.plist \
+                     -exportPath build/ios/ipa
     artifacts:
       - build/ios/ipa/*.ipa
-      - build/ios/ipa/*.dSYM.zip
-      - build/ios/ipa/*.log
