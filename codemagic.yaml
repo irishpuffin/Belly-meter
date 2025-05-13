@@ -4,29 +4,23 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
-      cocoapods: default
+      vars:
+        XCODE_PROJECT: "Runner.xcodeproj"
+        XCODE_SCHEME: "Runner"
+        EXPORT_OPTIONS: "ExportOptions.plist"
       groups:
-        - appstore
+        - appstore_credentials
     scripts:
       - name: Install dependencies
         script: |
           flutter pub get
-
-      - name: Decode signing assets
+      - name: Build IPA with manual signing
         script: |
-          echo $CM_CERTIFICATE | base64 --decode > /tmp/certificate.p12
-          echo $CM_PROVISIONING_PROFILE | base64 --decode > /tmp/profile.mobileprovision
-
-      - name: Set up code signing
-        script: |
-          keychain initialize
-          keychain add-certificates --certificate /tmp/certificate.p12 --certificate-password $CM_CERTIFICATE_PASSWORD
-          xcode-project use-profiles --profile /tmp/profile.mobileprovision
-
-      - name: Build IPA
-        script: |
-          flutter build ipa --release
-
+          flutter build ios --release --no-codesign
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME" \
+            --export-options-plist "$EXPORT_OPTIONS"
       - name: Upload to TestFlight
         script: |
           app-store-connect publish \
@@ -34,6 +28,5 @@ workflows:
             --key-id=$APP_STORE_CONNECT_KEY_IDENTIFIER \
             --private-key=$APP_STORE_CONNECT_PRIVATE_KEY \
             --app-id=6745463805
-
     artifacts:
       - build/ios/ipa/*.ipa
