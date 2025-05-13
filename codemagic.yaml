@@ -5,7 +5,7 @@ workflows:
       flutter: stable
       xcode: latest
       groups:
-        - appstore
+        - appstore  # Make sure this group contains your App Store Connect API credentials
     scripts:
       - name: Install dependencies
         script: |
