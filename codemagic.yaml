@@ -8,25 +8,16 @@ workflows:
         XCODE_PROJECT: "Runner.xcodeproj"
         XCODE_SCHEME: "Runner"
         EXPORT_OPTIONS: "ExportOptions.plist"
-      groups:
-        - appstore_credentials
     scripts:
       - name: Install dependencies
         script: |
           flutter pub get
-      - name: Build IPA with manual signing
+      - name: Build iOS app without code signing
         script: |
           flutter build ios --release --no-codesign
+      - name: Export .ipa with xcode-project
+        script: |
           xcode-project build-ipa \
             --project "$XCODE_PROJECT" \
             --scheme "$XCODE_SCHEME" \
             --export-options-plist "$EXPORT_OPTIONS"
-      - name: Upload to TestFlight
-        script: |
-          app-store-connect publish \
-            --issuer-id=$APP_STORE_CONNECT_ISSUER_ID \
-            --key-id=$APP_STORE_CONNECT_KEY_IDENTIFIER \
-            --private-key=$APP_STORE_CONNECT_PRIVATE_KEY \
-            --app-id=6745463805
-    artifacts:
-      - build/ios/ipa/*.ipa
