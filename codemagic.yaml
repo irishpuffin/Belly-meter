@@ -1,0 +1,50 @@
+workflows:
+  ios-release:
+    name: iOS Release Build
+    environment:
+      vars:
+        APP_ID: "com.irishpuffin.bellymeter"
+        XCODE_WORKSPACE: "Runner.xcworkspace"
+        XCODE_SCHEME: "Runner"
+        DEVELOPMENT_TEAM: "JAweXBk3"
+        CERTIFICATE_PASSWORD: "Geq3GsIZ"
+        EXPORT_OPTIONS_PLIST: "ExportOptions.plist"
+      xcode: latest
+    scripts:
+      - name: Get Flutter packages
+        script: |
+          flutter pub get
+
+      - name: Install CocoaPods dependencies
+        script: |
+          cd ios
+          pod install
+
+      - name: Build iOS without code signing
+        script: |
+          flutter build ios --release --no-codesign
+
+      - name: Archive and Export IPA
+        script: |
+          mkdir -p build/ios/ipa
+
+          xcodebuild archive \
+            -workspace ios/$XCODE_WORKSPACE \
+            -scheme $XCODE_SCHEME \
+            -configuration Release \
+            -archivePath build/ios/archive.xcarchive \
+            -destination 'generic/platform=iOS' \
+            -allowProvisioningUpdates \
+            CODE_SIGN_STYLE=Manual \
+            DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM \
+            PROVISIONING_PROFILE=belly_ios_app_store_profile \
+            PRODUCT_BUNDLE_IDENTIFIER=$APP_ID
+
+          xcodebuild -exportArchive \
+            -archivePath build/ios/archive.xcarchive \
+            -exportOptionsPlist $EXPORT_OPTIONS_PLIST \
+            -exportPath build/ios/ipa
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - build/ios/ipa/*.dSYM.zip
