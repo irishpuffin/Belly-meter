@@ -6,6 +6,12 @@ workflows:
       xcode: latest
       groups:
         - appstore
+    code_signing:
+      certificates:
+        - name: Belly Code Signing 2
+          certificate_password: 6JrLp3of
+      provisioning_profiles:
+        - name: Belly Provisioning Profile
     scripts:
       - name: Install dependencies
         script: |
@@ -19,6 +25,6 @@ workflows:
             --issuer-id=$APP_STORE_CONNECT_ISSUER_ID \
             --key-id=$APP_STORE_CONNECT_KEY_IDENTIFIER \
             --private-key=$APP_STORE_CONNECT_PRIVATE_KEY \
-            --app-id=6745463805
+            --app-id=YOUR_APP_ID
     artifacts:
       - build/ios/ipa/*.ipa
