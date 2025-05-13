@@ -20,6 +20,13 @@ workflows:
           cd ios
           pod install
 
+      - name: Set code signing settings in project
+        script: |
+          xcode-project use-profiles \
+            --project ios/Runner.xcodeproj \
+            --bundle-id $APP_ID \
+            --profile "$PROVISIONING_PROFILE_SPECIFIER"
+
       - name: Build iOS without code signing
         script: |
           flutter build ios --release --no-codesign
@@ -37,7 +44,6 @@ workflows:
             -allowProvisioningUpdates \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM \
-            PROVISIONING_PROFILE=$PROVISIONING_PROFILE_SPECIFIER \
             PRODUCT_BUNDLE_IDENTIFIER=$APP_ID
 
           xcodebuild -exportArchive \
