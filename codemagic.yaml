@@ -1,0 +1,27 @@
+workflows:
+  ios-release:
+    name: iOS Release Build
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+      groups:
+        - appstore
+      vars:
+        APP_ID: 6745463805  # This is your App Store app ID
+    scripts:
+      - name: Install Flutter dependencies
+        script: |
+          flutter pub get
+      - name: Build iOS IPA
+        script: |
+          flutter build ipa --release
+      - name: Upload to TestFlight
+        script: |
+          app-store-connect publish \
+            --issuer-id=$APP_STORE_CONNECT_ISSUER_ID \
+            --key-id=$APP_STORE_CONNECT_KEY_IDENTIFIER \
+            --private-key=$APP_STORE_CONNECT_PRIVATE_KEY \
+            --app-id=$APP_ID
+    artifacts:
+      - build/ios/ipa/*.ipa
