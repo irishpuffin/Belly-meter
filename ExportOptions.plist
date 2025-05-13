@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" 
+"http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>method</key>
+  <string>app-store</string>
+  <key>signingStyle</key>
+  <string>manual</string>
+  <key>provisioningProfiles</key>
+  <dict>
+    <key>com.irishpuffin.bellymeter</key>
+    <string>belly_ios_app_store_profile</string>
+  </dict>
+  <key>stripSwiftSymbols</key>
+  <true/>
+  <key>teamID</key>
+  <string>JAweXBk3</string>
+  <key>uploadBitcode</key>
+  <false/>
+  <key>compileBitcode</key>
+  <true/>
+</dict>
+</plist>
