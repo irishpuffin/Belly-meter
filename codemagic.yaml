@@ -43,3 +43,7 @@ scripts:
         -archivePath build/ios/archive.xcarchive \
         -exportOptionsPlist $EXPORT_OPTIONS_PLIST \
         -exportPath build/ios/ipa
+
+      echo "📦 IPA export folder contents:"
+      ls -l build/ios/ipa
+
