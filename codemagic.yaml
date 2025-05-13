@@ -1,9 +1,0 @@
-workflows:
-  dummy-ios:
-    name: Dummy iOS Workflow
-    environment:
-      flutter: stable
-      xcode: latest
-    scripts:
-      - name: Dummy step
-        script: echo "This is a placeholder"
