@@ -8,7 +8,6 @@ workflows:
         APP_ID: "com.irishpuffin.bellymeter"
         EXPORT_OPTIONS_PLIST: "ExportOptions.plist"
         DEVELOPMENT_TEAM: "JAweXBk3"
-        PROVISIONING_PROFILE_SPECIFIER: "a420072c-273c-40c7-8b23-c51c5bcc3910"
       xcode: latest
     scripts:
       - name: Get Flutter packages
@@ -24,7 +23,7 @@ workflows:
         script: |
           flutter build ios --release --no-codesign
 
-      - name: Archive and Export IPA with manual signing
+      - name: Archive and Export IPA using automatic profile matching
         script: |
           mkdir -p build/ios/ipa
 
@@ -37,7 +36,6 @@ workflows:
             -allowProvisioningUpdates \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM \
-            PROVISIONING_PROFILE_SPECIFIER="$PROVISIONING_PROFILE_SPECIFIER" \
             PRODUCT_BUNDLE_IDENTIFIER=$APP_ID
 
           xcodebuild -exportArchive \
