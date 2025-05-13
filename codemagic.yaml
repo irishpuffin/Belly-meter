@@ -22,6 +22,9 @@ workflows:
 
       - name: Set code signing settings in project
         script: |
+          dart pub global activate xcodeproj_cli
+          export PATH="$PATH":"$HOME/.pub-cache/bin"
+
           xcode-project use-profiles \
             --project ios/Runner.xcodeproj \
             --bundle-id $APP_ID \
@@ -44,6 +47,7 @@ workflows:
             -allowProvisioningUpdates \
             CODE_SIGN_STYLE=Manual \
             DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM \
+            PROVISIONING_PROFILE=$PROVISIONING_PROFILE_SPECIFIER \
             PRODUCT_BUNDLE_IDENTIFIER=$APP_ID
 
           xcodebuild -exportArchive \
