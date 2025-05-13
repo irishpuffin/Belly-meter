@@ -4,12 +4,22 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
+      cocoapods: default
       groups:
-        - appstore  # Make sure this group contains your App Store Connect API credentials
+        - appstore
     scripts:
       - name: Install dependencies
         script: |
           flutter pub get
+      - name: Decode signing assets
+        script: |
+          echo $CM_CERTIFICATE | base64 --decode > /tmp/certificate.p12
+          echo $CM_PROVISIONING_PROFILE | base64 --decode > /tmp/profile.mobileprovision
+      - name: Set up code signing
+        script: |
+          keychain initialize
+          keychain add-certificates --certificate /tmp/certificate.p12 --password $CM_CERTIFICATE_PASSWORD
+          xcode-project use-profiles --profile /tmp/profile.mobileprovision --bundle-id com.irishpuffin.bellymeter
       - name: Build IPA
         script: |
           flutter build ipa --release
