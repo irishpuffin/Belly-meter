@@ -5,7 +5,7 @@ workflows:
       flutter: stable
       xcode: latest
       ios_signing:
-        use-managed: true
+        distribution_type: app_store
     scripts:
       - name: Get dependencies
         script: flutter pub get
