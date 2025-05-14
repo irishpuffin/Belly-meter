@@ -15,3 +15,4 @@ workflows:
       - build/ios/ipa/*.ipa
       - build/ios/ipa/*.dSYM.zip
       - build/ios/ipa/*.xcarchive
+      
