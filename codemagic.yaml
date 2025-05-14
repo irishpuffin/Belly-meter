@@ -4,6 +4,8 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
+      ios_signing:
+        use-managed: true
     scripts:
       - name: Get dependencies
         script: flutter pub get
