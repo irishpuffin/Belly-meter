@@ -4,8 +4,6 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
-    provisioning_profile: belly_profile
-    certificate: belly_ios_distribution_cert
     scripts:
       - name: Install dependencies
         script: |
