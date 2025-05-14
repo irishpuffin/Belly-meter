@@ -1,0 +1,18 @@
+workflows:
+  ios-release:
+    name: iOS Release (Auto Signing)
+    environment:
+      flutter: stable
+      xcode: latest
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.irishpuffin.bellymeter
+    scripts:
+      - name: Get dependencies
+        script: flutter pub get
+      - name: Build IPA
+        script: flutter build ipa --release
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - build/ios/ipa/*.dSYM.zip
+      - build/ios/ipa/*.xcarchive
