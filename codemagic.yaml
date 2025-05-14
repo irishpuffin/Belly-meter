@@ -1,12 +1,11 @@
 workflows:
   ios-release:
-    name: iOS Release (Auto Signing)
+    name: iOS Release (Manual Signing)
     environment:
       flutter: stable
       xcode: latest
-      ios_signing:
-        distribution_type: app_store
-        bundle_identifier: com.irishpuffin.bellymeter
+    provisioning_profile: belly_profile
+    certificate: belly_ios_distribution_cert
     scripts:
       - name: Install dependencies
         script: |
