@@ -10,8 +10,16 @@ workflows:
           flutter pub get
       - name: Build IPA
         script: |
-          flutter build ipa --release
+          flutter build ipa --release \
+            --export-options-plist=ios/ExportOptions.plist
     artifacts:
       - build/ios/ipa/*.ipa
       - build/ios/ipa/*.dSYM.zip
       - build/ios/ipa/*.xcarchive
+    code_signing:
+      certificates:
+        - certificate_url: $CM_CERTIFICATE_URL
+          certificate_password: $CM_CERTIFICATE_PASSWORD
+      provisioning_profiles:
+        - bundle_identifier: com.irishpuffin.bellymeter
+          provisioning_profile_url: $CM_PROVISIONING_PROFILE_URL
