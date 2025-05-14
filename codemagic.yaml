@@ -6,7 +6,7 @@ workflows:
       xcode: latest
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: .com.irishpuffin.bellymeter
+        bundle_identifier: com.irishpuffin.bellymeter
     scripts:
       - name: Install dependencies
         script: |
