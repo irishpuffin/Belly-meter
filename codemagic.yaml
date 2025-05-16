@@ -9,8 +9,11 @@
         xcode: 16.2
         flutter: stable
         ios_signing:
-           distribution_type: app_store
-           bundle_identifier: .com.irishpuffin.bellymeter
+         distribution_type: app_store
+         certificate: belly_ios_distribution_cert
+         provisioning_profile: belly_ios_app_store_profile
+         bundle_identifier: .com.irishpuffin.bellymeter
+
 
         vars:
           APP_ID: 6745463805
