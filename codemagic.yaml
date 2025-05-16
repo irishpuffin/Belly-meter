@@ -8,9 +8,10 @@
       environment:
         xcode: 16.2
         flutter: stable
-        signing:
-          certificate: automatic
-          provisioning_profile: automatic
+        ios_signing:
+           distribution_type: app_store
+           bundle_identifier: com.irishpuffin.bellymeter
+
         vars:
           APP_ID: 6745463805
       scripts:
