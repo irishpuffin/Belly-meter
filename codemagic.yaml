@@ -10,7 +10,7 @@
         flutter: stable
         ios_signing:
            distribution_type: app_store
-           bundle_identifier: com.irishpuffin.bellymeter
+           bundle_identifier: .com.irishpuffin.bellymeter
 
         vars:
           APP_ID: 6745463805
