@@ -39,7 +39,7 @@
       publishing:
         email:
           recipients:
-            - email@test.io
+            - alex.niemer@gmail.com
           notify:
             success: true 
             failure: false
